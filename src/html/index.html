@@ -125,17 +125,23 @@
     </div>
     
     <script>
-        let currentTab = 'telegram';
-        const tabs = document.querySelectorAll('.tabs a');
-        const input = document.querySelector('#input');
-        const output = document.querySelector('#result');
-        const placeholders = {
-            telegram: "Enter the channel name, if url = <a href=https://t.me/TelegramTips>https://t.me/TelegramTips</a>, The name is <b>TelegramTips</b>",
-            bilibili: "Enter the user id, if url = <a href=https://space.bilibili.com/546195>https://space.bilibili.com/546195</a>, The  user id is <b>546195</b>",
-            weibo: "Enter the user id, if url = <a href=https://weibo.com/u/1649949231>https://weibo.com/u/1649949231</a>, The  user id is <b>1649949231</b>",
-            xiaohongshu: "Enter the user id, if url = <a href=https://www.xiaohongshu.com/user/profile/5a13b53b4eacab190f3d0667>https://www.xiaohongshu.com/user/profile/5a13b53b4eacab190f3d0667</a>, The  user id is <b>5a13b53b4eacab190f3d0667</b>",
-        };
-        tabs.forEach(tab => {
+    let currentTab = 'telegram';
+    const tabs = document.querySelectorAll('.tabs a');
+    const input = document.querySelector('#input');
+    const output = document.querySelector('#result');
+    const placeholders = {
+        telegram: "Enter the channel name, if url = <a href=https://t.me/TelegramTips>https://t.me/TelegramTips</a>, The name is <b>TelegramTips</b>",
+        bilibili: "Enter the user id, if url = <a href=https://space.bilibili.com/546195>https://space.bilibili.com/546195</a>, The  user id is <b>546195</b>",
+        weibo: "Enter the user id, if url = <a href=https://weibo.com/u/1649949231>https://weibo.com/u/1649949231</a>, The  user id is <b>1649949231</b>",
+        xiaohongshu: "Enter the user id, if url = <a href=https://www.xiaohongshu.com/user/profile/5a13b53b4eacab190f3d0667>https://www.xiaohongshu.com/user/profile/5a13b53b4eacab190f3d0667</a>, The  user id is <b>5a13b53b4eacab190f3d0667</b>",
+    };
+    const linkFormats = {
+        telegram: "channel",
+        bilibili: "dynamic",
+        weibo: "user",
+        xiaohongshu: "user",
+    }
+    tabs.forEach(tab => {
         tab.addEventListener('click', function (event) {
             event.preventDefault();
             document.querySelector(`#${currentTab}`).classList.remove('active');
@@ -146,7 +152,7 @@
     });
     document.querySelector('#generate-button').addEventListener('click', function () {
         const input_value = document.querySelector('#input').value;
-        let url = `https://s.morerss.com/rss/${currentTab}/channel/${input_value}`;
+        let url = `https://s.morerss.com/rss/${currentTab}/${linkFormats[currentTab]}/${input_value}`;
         document.querySelector('#display-area').innerHTML = `<a href="${url}">${url}</a>`;
     });
     </script>
